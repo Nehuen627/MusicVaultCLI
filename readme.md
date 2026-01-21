@@ -123,8 +123,6 @@ Playlists are saved as JSON files with the following structure:
 - [ ] Add support for additional streaming platforms
 - [ ] Implement playlist viewing functionality
 - [ ] Enable cross-platform playlist transfer
-- [ ] Add playlist restoration features
-- [ ] Support for incremental backups
 
 ## License
 
