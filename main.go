@@ -223,13 +223,23 @@ func fetch_playlist_songs(playlistID string, userToken string) []Song {
 }
 
 func backup_playlist(name string, songs []Song) {
+    folderName := "playlists"
+
+    if _, err := os.Stat(folderName); os.IsNotExist(err) {
+        os.Mkdir(folderName, 0755)
+    }
+
     fileData, _ := json.MarshalIndent(songs, "", "  ")
     
     safeName := strings.ReplaceAll(name, "/", "-") + ".json"
     
-    err := os.WriteFile(safeName, fileData, 0644) 
+    fullPath := folderName + string(os.PathSeparator) + safeName
+
+    err := os.WriteFile(fullPath, fileData, 0644) 
     
     if err == nil {
-        fmt.Printf("Succesfully saved %d songs to '%s'\n", len(songs), safeName)
+        fmt.Printf("Succesfully saved %d songs to '%s'\n", len(songs), fullPath)
+    } else {
+        fmt.Println("Error saving file:", err)
     }
 }
